@@ -86,24 +86,28 @@ b = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 zMin = [10, 18, 15, 9, 10, 16, 11, 5, 18, 16, 12, 14, 15, 11, 12, 8, 9, 5, 14, 8, M, M, M, M,
         M, M, M, M, M, M, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-total = 0
+fo = 0
 
 pp = []
 
 caminho = []
 
 
+# Elimina todos os M das variáveis artificiais
 def bigM():
-    global total
-    div = -1 * M
+    global fo
 
     for i, base in enumerate(linha):
+
+        # Se em "linha" possui algum termo 'a' (ex: a1, a2)
         if 'a' in base:
 
             for j in range(0, len(zMin)):
-                zMin[j] = round(zMin[j] + div * matriz[i][j], 2)
 
-            total = round(total + div * b[i], 2)
+                # Para toda linha com 'a': Lnova(zMin) = L(zMin) - M * Li(linha artificial)
+                zMin[j] = round(zMin[j] + (-M) * matriz[i][j], 5)
+
+            fo = round(fo + (-M) * b[i], 5)
 
 
 def solucaoOtima(function):
@@ -127,6 +131,7 @@ def getLinhaPivoIndex(j):
     return pp.index(minPositivo(pp))
 
 
+# Retorna o menor número positivo
 def minPositivo(iterable):
     for i, num in enumerate(iterable):
         if num < 0:
@@ -136,28 +141,42 @@ def minPositivo(iterable):
         return min(iterable)
 
 
-def resetLinhaPivo():
-    for i, num in enumerate(matriz[linhaPivoIndex]):
-        matriz[linhaPivoIndex][i] = num / numPivo
+# def resetLinhaPivo():
+#     for i, num in enumerate(matriz[linhaPivoIndex]):
+#         matriz[linhaPivoIndex][i] = num / numPivo
 
-    b[linhaPivoIndex] = b[linhaPivoIndex] / numPivo
+#     b[linhaPivoIndex] = b[linhaPivoIndex] / numPivo
 
 
 def escalonarMatriz():
-    global total
+    global fo
+
+    # Divide a linha pivo atual pelo pivo atual {
+    for j, num in enumerate(matriz[linhaPivoIndex]):
+        matriz[linhaPivoIndex][j] = num / numPivo
+
+    b[linhaPivoIndex] = b[linhaPivoIndex] / numPivo
+    # }
+
+    # Escalona a matriz {
     for i, linha in enumerate(matriz):
         if i != linhaPivoIndex:
             div = -1 * linha[colunaPivoIndex]
             for j, value in enumerate(linha):
+
+                # Para toda lista: Lnova(matriz) = L(matriz) - colunaPivo * Lj(linha)
                 matriz[i][j] = round(
-                    value + div * matriz[linhaPivoIndex][j], 2)
-            b[i] = round(b[i] + div * b[linhaPivoIndex], 2)
+                    value + div * matriz[linhaPivoIndex][j], 5)
+            b[i] = round(b[i] + div * b[linhaPivoIndex], 5)
 
     div = -1 * zMin[colunaPivoIndex]
     for j in range(0, len(zMin)):
-        zMin[j] = round(zMin[j] + div * matriz[linhaPivoIndex][j], 2)
 
-    total = round(total + div * b[linhaPivoIndex], 2)
+        # Para toda lista: Lnova(zMin) = L(zMin) - colunaPivo * Lj(linha)
+        zMin[j] = round(zMin[j] + div * matriz[linhaPivoIndex][j], 5)
+    # }
+
+    fo = round(fo + div * b[linhaPivoIndex], 2)
 
 
 def header():
@@ -177,16 +196,19 @@ if M:
 
 while True:
 
+    # Retorna se "zMin" possue ou não numero negativo
     if not solucaoOtima(zMin):
+
+        # Retorna index do menor número do zMin
         colunaPivoIndex = getColunaPivoIndex(zMin)
 
+        # Retorna index do menor número da linha positivo
         linhaPivoIndex = getLinhaPivoIndex(colunaPivoIndex)
 
+        # Valor do número pivo da matriz atual
         numPivo = matriz[linhaPivoIndex][colunaPivoIndex]
 
         linha[linhaPivoIndex] = coluna[colunaPivoIndex]
-
-        resetLinhaPivo()
 
         escalonarMatriz()
     else:
@@ -200,4 +222,4 @@ for i, base in enumerate(linha):
         caminho.append(linha[i])
 
 print("Solução Ótima:", caminho, "\n")
-print("FO:", total*-1, "\n")
+print("FO:", fo*-1, "\n")
