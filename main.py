@@ -112,3 +112,12 @@ def getLinhaPivoIndex(j):
         else:
             pp.append(term / coefficient)
     return pp.index(minPositivo(pp))
+
+
+def minPositivo(iterable):
+    for i, num in enumerate(iterable):
+        if num < 0:
+            iterable[i] = math.inf
+
+    if min(iterable) != math.inf:
+        return min(iterable)
