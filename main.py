@@ -93,7 +93,7 @@ pp = []
 caminho = []
 
 
-def big_m():
+def bigM():
     global total
     div = -1 * M
 
@@ -158,3 +158,47 @@ def escalonarMatriz():
         zMin[j] = round(zMin[j] + div * matriz[linhaPivoIndex][j], 2)
 
     total = round(total + div * b[linhaPivoIndex], 2)
+
+
+def header():
+    print('\n=======================================================================================================\n')
+    input("PROBLEMA DO CAIXEIRO VIAJANTE")
+    print('\n=======================================================================================================\n')
+
+
+def init():
+    header()
+
+
+init()
+
+if M:
+    bigM()
+
+while True:
+
+    if not solucaoOtima(zMin):
+        colunaPivoIndex = getColunaPivoIndex(zMin)
+
+        linhaPivoIndex = getLinhaPivoIndex(colunaPivoIndex)
+
+        numPivo = matriz[linhaPivoIndex][colunaPivoIndex]
+
+        linha[linhaPivoIndex] = coluna[colunaPivoIndex]
+
+        resetLinhaPivo()
+
+        escalonarMatriz()
+    else:
+        break
+
+    pp.clear()
+
+
+for i, base in enumerate(linha):
+    if 'x' in base and b[i] == 1:
+        caminho.append(linha[i])
+
+print(caminho)
+print('')
+print("FO:", total*-1, "\n")
