@@ -121,3 +121,27 @@ def minPositivo(iterable):
 
     if min(iterable) != math.inf:
         return min(iterable)
+
+
+def resetLinhaPivo():
+    for i, num in enumerate(matriz[linhaPivoIndex]):
+        matriz[linhaPivoIndex][i] = num / numPivo
+
+    b[linhaPivoIndex] = b[linhaPivoIndex] / numPivo
+
+
+def escalonarMatriz():
+    global total
+    for i, linha in enumerate(matriz):
+        if i != linhaPivoIndex:
+            div = -1 * linha[colunaPivoIndex]
+            for j, value in enumerate(linha):
+                matriz[i][j] = round(
+                    value + div * matriz[linhaPivoIndex][j], 2)
+            b[i] = round(b[i] + div * b[linhaPivoIndex], 2)
+
+    div = -1 * zMin[colunaPivoIndex]
+    for j in range(0, len(zMin)):
+        zMin[j] = round(zMin[j] + div * matriz[linhaPivoIndex][j], 2)
+
+    total = round(total + div * b[linhaPivoIndex], 2)
