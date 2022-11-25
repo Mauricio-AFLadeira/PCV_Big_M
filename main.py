@@ -93,6 +93,19 @@ pp = []
 caminho = []
 
 
+def big_m():
+    global total
+    div = -1 * M
+
+    for i, base in enumerate(linha):
+        if 'a' in base:
+
+            for j in range(0, len(zMin)):
+                zMin[j] = round(zMin[j] + div * matriz[i][j], 2)
+
+            total = round(total + div * b[i], 2)
+
+
 def solucaoOtima(function):
     for num in function:
         if num < 0:
