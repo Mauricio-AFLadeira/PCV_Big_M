@@ -102,3 +102,13 @@ def solucaoOtima(function):
 
 def getColunaPivoIndex(function):
     return function.index(min(function))
+
+
+def getLinhaPivoIndex(j):
+    for i, term in enumerate(b):
+        coefficient = matriz[i][j]
+        if coefficient <= 0:
+            pp.append(math.inf)
+        else:
+            pp.append(term / coefficient)
+    return pp.index(minPositivo(pp))
