@@ -97,10 +97,10 @@ caminho = []
 def bigM():
     global fo
 
-    for i, base in enumerate(linha):
+    for i, term in enumerate(linha):
 
         # Se em "linha" possui algum termo 'a' (ex: a1, a2)
-        if 'a' in base:
+        if 'a' in term:
 
             for j in range(0, len(zMin)):
 
@@ -110,15 +110,15 @@ def bigM():
             fo = round(fo + (-M) * b[i], 5)
 
 
-def solucaoOtima(function):
-    for num in function:
+def solucaoOtima(lista):
+    for num in lista:
         if num < 0:
             return False
     return True
 
 
-def getColunaPivoIndex(function):
-    return function.index(min(function))
+def getColunaPivoIndex(lista):
+    return lista.index(min(lista))
 
 
 def getLinhaPivoIndex(j):
@@ -132,13 +132,13 @@ def getLinhaPivoIndex(j):
 
 
 # Retorna o menor número positivo
-def minPositivo(iterable):
-    for i, num in enumerate(iterable):
+def minPositivo(lista):
+    for i, num in enumerate(lista):
         if num < 0:
-            iterable[i] = math.inf
+            lista[i] = math.inf
 
-    if min(iterable) != math.inf:
-        return min(iterable)
+    if min(lista) != math.inf:
+        return min(lista)
 
 
 # def resetLinhaPivo():
@@ -217,8 +217,8 @@ while True:
     pp.clear()
 
 
-for i, base in enumerate(linha):
-    if 'x' in base and b[i] == 1:
+for i, term in enumerate(linha):
+    if 'x' in term and b[i] == 1:
         caminho.append(linha[i])
 
 print("Solução Ótima:", caminho, "\n")
