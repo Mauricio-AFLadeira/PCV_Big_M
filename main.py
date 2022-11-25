@@ -119,11 +119,11 @@ def getColunaPivoIndex(function):
 
 def getLinhaPivoIndex(j):
     for i, term in enumerate(b):
-        coefficient = matriz[i][j]
-        if coefficient <= 0:
+        coeficiente = matriz[i][j]
+        if coeficiente <= 0:
             pp.append(math.inf)
         else:
-            pp.append(term / coefficient)
+            pp.append(term / coeficiente)
     return pp.index(minPositivo(pp))
 
 
@@ -161,9 +161,9 @@ def escalonarMatriz():
 
 
 def header():
-    print('\n=======================================================================================================\n')
+    print('\n===============================\n')
     input("PROBLEMA DO CAIXEIRO VIAJANTE")
-    print('\n=======================================================================================================\n')
+    print('\n===============================\n')
 
 
 def init():
@@ -199,6 +199,5 @@ for i, base in enumerate(linha):
     if 'x' in base and b[i] == 1:
         caminho.append(linha[i])
 
-print(caminho)
-print('')
+print("Solução Ótima:", caminho, "\n")
 print("FO:", total*-1, "\n")
