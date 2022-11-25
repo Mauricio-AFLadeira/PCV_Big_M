@@ -98,3 +98,7 @@ def solucaoOtima(function):
         if num < 0:
             return False
     return True
+
+
+def getColunaPivoIndex(function):
+    return function.index(min(function))
