@@ -91,3 +91,10 @@ total = 0
 pp = []
 
 caminho = []
+
+
+def solucaoOtima(function):
+    for num in function:
+        if num < 0:
+            return False
+    return True
