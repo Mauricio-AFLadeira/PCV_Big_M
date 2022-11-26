@@ -97,10 +97,10 @@ caminho = []
 def bigM():
     global fo
 
-    for i, term in enumerate(linha):
+    for i, termo in enumerate(linha):
 
         # Se em "linha" possui algum termo 'a' (ex: a1, a2)
-        if 'a' in term:
+        if 'a' in termo:
 
             for j in range(0, len(zMin)):
 
@@ -123,11 +123,11 @@ def getColunaPivoIndex(lista):
 
 def getLinhaPivoIndex(j):
     for i, term in enumerate(b):
-        coeficiente = matriz[i][j]
-        if coeficiente <= 0:
+        aux = matriz[i][j]
+        if aux <= 0:
             pp.append(math.inf)
         else:
-            pp.append(term / coeficiente)
+            pp.append(term / aux)
     return pp.index(minPositivo(pp))
 
 
@@ -139,13 +139,6 @@ def minPositivo(lista):
 
     if min(lista) != math.inf:
         return min(lista)
-
-
-# def resetLinhaPivo():
-#     for i, num in enumerate(matriz[linhaPivoIndex]):
-#         matriz[linhaPivoIndex][i] = num / numPivo
-
-#     b[linhaPivoIndex] = b[linhaPivoIndex] / numPivo
 
 
 def escalonarMatriz():
@@ -161,22 +154,22 @@ def escalonarMatriz():
     # Escalona a matriz {
     for i, linha in enumerate(matriz):
         if i != linhaPivoIndex:
-            div = -1 * linha[colunaPivoIndex]
-            for j, value in enumerate(linha):
+            aux = -1 * linha[colunaPivoIndex]
+            for j, valor in enumerate(linha):
 
                 # Para toda lista: Lnova(matriz) = L(matriz) - colunaPivo * Lj(linha)
                 matriz[i][j] = round(
-                    value + div * matriz[linhaPivoIndex][j], 5)
-            b[i] = round(b[i] + div * b[linhaPivoIndex], 5)
+                    valor + aux * matriz[linhaPivoIndex][j], 5)
+            b[i] = round(b[i] + aux * b[linhaPivoIndex], 5)
 
-    div = -1 * zMin[colunaPivoIndex]
+    aux = -1 * zMin[colunaPivoIndex]
     for j in range(0, len(zMin)):
 
         # Para toda lista: Lnova(zMin) = L(zMin) - colunaPivo * Lj(linha)
-        zMin[j] = round(zMin[j] + div * matriz[linhaPivoIndex][j], 5)
+        zMin[j] = round(zMin[j] + aux * matriz[linhaPivoIndex][j], 5)
     # }
 
-    fo = round(fo + div * b[linhaPivoIndex], 2)
+    fo = round(fo + aux * b[linhaPivoIndex], 2)
 
 
 def header():
