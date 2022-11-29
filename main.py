@@ -128,17 +128,7 @@ def getLinhaPivoIndex(j):
             pp.append(math.inf)
         else:
             pp.append(term / aux)
-    return pp.index(minPositivo(pp))
-
-
-# Retorna o menor número positivo
-def minPositivo(lista):
-    for i, num in enumerate(lista):
-        if num < 0:
-            lista[i] = math.inf
-
-    if min(lista) != math.inf:
-        return min(lista)
+    return pp.index(min(pp))
 
 
 def escalonarMatriz():
