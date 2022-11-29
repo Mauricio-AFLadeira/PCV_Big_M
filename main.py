@@ -162,14 +162,10 @@ def escalonarMatriz():
     fo = round(fo + aux * b[linhaPivoIndex], 2)
 
 
-def header():
+def init():
     print('\n===============================\n')
     input("PROBLEMA DO CAIXEIRO VIAJANTE")
     print('\n===============================\n')
-
-
-def init():
-    header()
 
 
 init()
@@ -177,25 +173,20 @@ init()
 if M:
     bigM()
 
-while True:
+while not solucaoOtima(zMin):
 
-    # Retorna se "zMin" possue ou não numero negativo
-    if not solucaoOtima(zMin):
+    # Retorna index do menor número do zMin
+    colunaPivoIndex = getColunaPivoIndex(zMin)
 
-        # Retorna index do menor número do zMin
-        colunaPivoIndex = getColunaPivoIndex(zMin)
+    # Retorna index do menor número da linha positivo
+    linhaPivoIndex = getLinhaPivoIndex(colunaPivoIndex)
 
-        # Retorna index do menor número da linha positivo
-        linhaPivoIndex = getLinhaPivoIndex(colunaPivoIndex)
+    # Valor do número pivo da matriz atual
+    numPivo = matriz[linhaPivoIndex][colunaPivoIndex]
 
-        # Valor do número pivo da matriz atual
-        numPivo = matriz[linhaPivoIndex][colunaPivoIndex]
+    linha[linhaPivoIndex] = coluna[colunaPivoIndex]
 
-        linha[linhaPivoIndex] = coluna[colunaPivoIndex]
-
-        escalonarMatriz()
-    else:
-        break
+    escalonarMatriz()
 
     pp.clear()
 
